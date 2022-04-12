@@ -17,4 +17,15 @@ requiere("realizar logistica", ["logistica"]).
 requiere("clasificar paquetes", ["disponibilidad horaria"]).
 requiere("atencion al publico", ["buena atencion"]).
 
-verifica (Empleado, TipoTrabajo):-
+empleadoTiene(Empleado, Requisito):-
+    tieneCualidad(Empleado, Cualidades),
+    member(Requisito, Cualidades).
+
+verifica(Empleado, TipoTrabajo, []).
+verifica(Empleado, TipoTrabajo) :-
+    requiere(TipoTrabajo, [Requisito|Requisitos]),
+    empleadoTiene(Empleado, Requisito),
+    verifica(Empleado, TipoTrabajo, Requisitos).
+verifica(Empleado, TipoTrabajo, [Requisito|Requisitos]) :-
+    empleadoTiene(Empleado, Requisito),
+    verifica(Empleado, TipoTrabajo, Requisitos).
