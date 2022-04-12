@@ -1,4 +1,4 @@
-tieneCualidad(carlos,   ["buena atencion", "logistica", "fuerza"]).
+tieneCualidad(carlos,   ["disponibilidad horaria", "fuerza"]).
 tieneCualidad(marisa,   ["buena atencion", "fuerza"]).
 tieneCualidad(juan,     ["movilidad", "disponibilidad horaria"]).
 tieneCualidad(jimena,   ["logistica", "disponibilidad horaria"]).
@@ -17,3 +17,4 @@ requiere("realizar logistica", ["logistica"]).
 requiere("clasificar paquetes", ["disponibilidad horaria"]).
 requiere("atencion al publico", ["buena atencion"]).
 
+verifica (Empleado, TipoTrabajo):-
