@@ -10,3 +10,10 @@ tieneCualidad(eva,      ["movilidad", "logistica"]).
 tieneCualidad(miguel,   ["buena atencion", "disponibilidad horaria"]).
 tieneCualidad(clara,    ["fuerza"]).
 tieneCualidad(luis,     ["logistica"]).
+
+requiere("repartir", ["fuerza"]).
+requiere("repartir larga distancia", ["fuerza", "movilidad"]).
+requiere("realizar logistica", ["logistica"]).
+requiere("clasificar paquetes", ["disponibilidad horaria"]).
+requiere("atencion al publico", ["buena atencion"]).
+
