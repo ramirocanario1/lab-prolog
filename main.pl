@@ -33,4 +33,4 @@ verifica(Empleado, TipoTrabajo) :-
 
 % dado un identificador de trabajo a realizar permite determinar la lista de empleados capacitados para hacerlo.
 puedenRealizar(IdTrabajo, Empleados) :-
-    verifica(Empleados, IdTrabajo). % WIP: entiendo que deberíamos usar "verifica".
+    findall(Empleado, verifica(Empleado, IdTrabajo), Empleados). 
