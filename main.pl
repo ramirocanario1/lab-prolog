@@ -11,21 +11,26 @@ tieneCualidad(miguel,   ["buena atencion", "disponibilidad horaria"]).
 tieneCualidad(clara,    ["fuerza"]).
 tieneCualidad(luis,     ["logistica"]).
 
-requiere("repartir", ["fuerza"]).
-requiere("repartir larga distancia", ["fuerza", "movilidad"]).
-requiere("realizar logistica", ["logistica"]).
-requiere("clasificar paquetes", ["disponibilidad horaria"]).
-requiere("atencion al publico", ["buena atencion"]).
+requiere("repartir",                  ["fuerza"]).
+requiere("repartir larga distancia",  ["fuerza", "movilidad"]).
+requiere("realizar logistica",        ["logistica"]).
+requiere("clasificar paquetes",       ["disponibilidad horaria"]).
+requiere("atencion al publico",       ["buena atencion"]).
 
 empleadoTiene(Empleado, Requisito):-
     tieneCualidad(Empleado, Cualidades),
     member(Requisito, Cualidades).
 
-verifica(Empleado, TipoTrabajo, []).
+% dado un empleado y un tipo de trabajo, verifica que el empleado esté capacitado para hacerlo
+verifica(_, _, []). % TODO: realmente es necesario?
+verifica(Empleado, TipoTrabajo, [Requisito|Requisitos]) :-
+    empleadoTiene(Empleado, Requisito),
+    verifica(Empleado, TipoTrabajo, Requisitos).  % TODO: se podría mejorar la solución para no repetir estas dos líneas?
 verifica(Empleado, TipoTrabajo) :-
     requiere(TipoTrabajo, [Requisito|Requisitos]),
     empleadoTiene(Empleado, Requisito),
     verifica(Empleado, TipoTrabajo, Requisitos).
-verifica(Empleado, TipoTrabajo, [Requisito|Requisitos]) :-
-    empleadoTiene(Empleado, Requisito),
-    verifica(Empleado, TipoTrabajo, Requisitos).
+
+% dado un identificador de trabajo a realizar permite determinar la lista de empleados capacitados para hacerlo.
+puedenRealizar(IdTrabajo, Empleados) :-
+    verifica(Empleados, IdTrabajo). % WIP: entiendo que deberíamos usar "verifica".
