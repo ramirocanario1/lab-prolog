@@ -49,11 +49,19 @@ puedenRealizar(IdTrabajo, Empleados) :-
 % permite obtener todas las combinaciones posibles de lista de asignaciones, donde cada
 % elemento relaciona cada trabajo con un empleado que puede realizarlo, teniendo en cuenta
 % sus capacidades y que se le puede asignar sólo un trabajo por vez.
-asignarTrabajos(Trabajos, Asignaciones):-
+asignarTrabajos([], []).
+asignarTrabajos([Trabajo|RestoTrabajos], [Asignacion|RestoAsignaciones]):-
+    asignarTrabajo(Trabajo, Asignacion),
+    asignarTrabajos(RestoTrabajos, RestoAsignaciones).
 
+asignarTrabajo(Trabajo, Asignacion):-
+    verifica(Empleado, Trabajo),
+    Asignacion = [Empleado, Trabajo].
+
+% TODO: hacer que un empleado no se asigne dos veces a distintos trabajos.
 
 % Consulta de ejemplo 
-%asignarTrabajos(["repartir", "clasificar paquetes", "atencion al publico"], Asignaciones).
+% asignarTrabajos(["repartir", "clasificar paquetes", "atencion al publico"], Asignaciones).
 
 
 
