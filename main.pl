@@ -73,7 +73,22 @@ noMember(_, _).
 % Consulta de ejemplo 
 % asignarTrabajos(["repartir", "clasificar paquetes", "atencion al publico"], Asignaciones).
 
-
-
-
 % ------------- TERCER ITEM ------------- %
+
+
+% ------------- CUARTO ITEM ------------- %
+
+% dada una lista de trabajos grupales a realizar, donde cada uno determina además la
+% cantidad de empleados requeridos para su realización, permite obtener todas las combinaciones
+% posibles de la lista de grupos asignados. Cada elemento de la lista de grupos asignados relaciona
+% cada trabajo con los empleados que pueden realizarlo teniendo en cuenta sus capacidades, que se
+% le puede asignar sólo un trabajo por vez a cada empleado, y que se debe contar con la cantidad
+% de empleados necesaria. La lista de trabajos a rechazar determina los trabajos que no sería
+% posible realizar
+
+% asignarTrabajosGrupales(TrabajosGrupales, GruposAsignados, TrabajosARechazar):-
+
+
+% asignarTrabajosGrupales([g("repartir", 2), g("atencion al publico", 2)], GruposAsignados, TrabajosARechazar) :-
+
+% ------------- CUARTO ITEM ------------- %
