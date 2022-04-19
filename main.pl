@@ -50,13 +50,23 @@ puedenRealizar(IdTrabajo, Empleados) :-
 % elemento relaciona cada trabajo con un empleado que puede realizarlo, teniendo en cuenta
 % sus capacidades y que se le puede asignar sólo un trabajo por vez.
 asignarTrabajos([], []).
-asignarTrabajos([Trabajo|RestoTrabajos], [Asignacion|RestoAsignaciones]):-
-    asignarTrabajo(Trabajo, Asignacion),
-    asignarTrabajos(RestoTrabajos, RestoAsignaciones).
+asignarTrabajos(Trabajos, Asignaciones, EmpleadosAsignados):-
+    asignarTrabajosAux(Trabajos, Asignaciones, EmpleadosAsignados).
+
+asignarTrabajosAux([], [], _).
+asignarTrabajosAux([Trabajo|RestoTrabajos], [a(Empleado, Trabajo)|RestoAsignaciones], EmpleadosAsignados):-
+    asignarTrabajo(Trabajo, a(Empleado, Trabajo)),
+    EmpleadosAsignados = [Empleado | EmpleadosAsignados],
+    asignarTrabajosAux(RestoTrabajos, RestoAsignaciones, EmpleadosAsignados).
 
 asignarTrabajo(Trabajo, Asignacion):-
     verifica(Empleado, Trabajo),
-    Asignacion = [Empleado, Trabajo].
+    % Acá debería verificar si Empleado está en la lista y hacer un fail
+    Asignacion = a(Empleado, Trabajo).
+
+noMember(Elemento, Lista):-
+        member(Elemento, Lista), !, fail.
+noMember(_, _).
 
 % TODO: hacer que un empleado no se asigne dos veces a distintos trabajos.
 
