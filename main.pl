@@ -49,31 +49,36 @@ puedenRealizar(IdTrabajo, Empleados) :-
 % permite obtener todas las combinaciones posibles de lista de asignaciones, donde cada
 % elemento relaciona cada trabajo con un empleado que puede realizarlo, teniendo en cuenta
 % sus capacidades y que se le puede asignar sólo un trabajo por vez.
-asignarTrabajos([], []).
-asignarTrabajos(Trabajos, Asignaciones, EmpleadosAsignados):-
-    asignarTrabajosAux(Trabajos, Asignaciones, EmpleadosAsignados).
+% asignarTrabajos([], [], []).
+asignarTrabajos(Trabajos, Asignaciones):-
+    asignarTrabajosAux(Trabajos, Asignaciones, []).
 
 asignarTrabajosAux([], [], _).
 asignarTrabajosAux([Trabajo|RestoTrabajos], [a(Empleado, Trabajo)|RestoAsignaciones], EmpleadosAsignados):-
     asignarTrabajo(Trabajo, a(Empleado, Trabajo)),
-    EmpleadosAsignados = [Empleado | EmpleadosAsignados],
-    asignarTrabajosAux(RestoTrabajos, RestoAsignaciones, EmpleadosAsignados).
+    noMember(Empleado, EmpleadosAsignados),
+    asignarTrabajosAux(RestoTrabajos, RestoAsignaciones, [Empleado|EmpleadosAsignados]).
 
-asignarTrabajo(Trabajo, Asignacion):-
-    verifica(Empleado, Trabajo),
-    % Acá debería verificar si Empleado está en la lista y hacer un fail
-    Asignacion = a(Empleado, Trabajo).
+asignarTrabajo(Trabajo, a(Empleado, Trabajo)):-
+    verifica(Empleado, Trabajo).
 
 noMember(Elemento, Lista):-
         member(Elemento, Lista), !, fail.
 noMember(_, _).
 
-% TODO: hacer que un empleado no se asigne dos veces a distintos trabajos.
-
-% Consulta de ejemplo 
-% asignarTrabajos(["repartir", "clasificar paquetes", "atencion al publico"], Asignaciones).
-
-
-
-
 % ------------- TERCER ITEM ------------- %
+
+
+% ------------- CUARTO ITEM ------------- %
+% tal que dada una lista de trabajos grupales a realizar, donde cada uno determina además la
+% cantidad de empleados requeridos para su realización, permite obtener todas las combinaciones
+% posibles de la lista de grupos asignados. Cada elemento de la lista de grupos asignados relaciona
+% cada trabajo con los empleados que pueden realizarlo teniendo en cuenta sus capacidades, que se
+% le puede asignar sólo un trabajo por vez a cada empleado, y que se debe contar con la cantidad
+% de empleados necesaria. La lista de trabajos a rechazar determina los trabajos que no sería
+% posible realizar.
+
+asignarTrabajosGrupales(TrabajosGrupales, GruposAsignados, TrabajosARechazar):-
+
+
+% ------------- CUARTO ITEM ------------- %
